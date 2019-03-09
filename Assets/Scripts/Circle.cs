@@ -57,18 +57,37 @@ public class Circle
         return GetPointsBetweenAngles(angleX, angleY);
     }
 
-    public List<Vector2> GetPointsBetweenAngles(float angleX, float angleY)
+    /// <summary>
+    /// Function calculates points between two angles on Circle.
+    /// </summary>
+    /// <param name="angleX"></param>
+    /// <param name="angleY"></param>
+    /// <param name="sortingMethod"> Sorting method is responsible for choosing how to handle situation when angleX > angleY. Default value is true.
+    ///     If is true the values are simply replaced angleX = angleY and angleY = angleX. 
+    ///     Additionaly in this method program checks if another way between points is not shorter. For example (0->270) is changing into (270 -> 360).
+    ///     If is false to lower value is added 360 degrees (full circle).
+    /// </param>
+    /// <returns>Points between two angle. Interval is one degree.</returns>
+    public List<Vector2> GetPointsBetweenAngles(float angleX, float angleY, bool sortingMethod = true)
     {
         List<Vector2> output = new List<Vector2>();
 
-        if (angleX > angleY)
+        if (sortingMethod)
         {
-            float temp = angleX;
-            angleX = angleY;
-            angleY = temp;
-        }
+            if (angleX > angleY)
+            {
+                float temp = angleX;
+                angleX = angleY;
+                angleY = temp;
+            }
 
-        CheckAnotherWay(ref angleX, ref angleY);
+            CheckAnotherWay(ref angleX, ref angleY);
+        }else{
+            if (angleX > angleY)
+            {
+                angleY += 360;
+            }
+        }
 
         for (float interval = angleX; interval < angleY; interval += 1)
         {

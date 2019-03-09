@@ -22,7 +22,7 @@ public class LevelBehaviour : MonoBehaviour
         
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
-        drawer = new CircleDrawer(LinePrefab, endCircle);
+        drawer = new CircleDrawer(LinePrefab, endCircle, 90);
         CreateBaseObstacles(40);
         CreateRocket();
     }
