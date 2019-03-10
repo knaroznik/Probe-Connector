@@ -586,6 +586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 746180490}
   - component: {fileID: 746180491}
+  - component: {fileID: 746180492}
   m_Layer: 0
   m_Name: '!SCRIPTS'
   m_TagString: Untagged
@@ -625,6 +626,23 @@ MonoBehaviour:
     type: 3}
   LinePrefab: {fileID: 3132918672736730119, guid: b3f64f45bc6da3748886eb54dec4a979,
     type: 3}
+  SmallLinePrefab: {fileID: 7905576715424817640, guid: 84f1c930f8f742341ada4d72b9667dad,
+    type: 3}
+  angleDifference: 30
+  maxProbeNumber: 5
+--- !u!114 &746180492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746180489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc4d72657430c6048bc8eb16e12e7df6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxProbeText: {fileID: 1688846677}
 --- !u!1 &1304927817
 GameObject:
   m_ObjectHideFlags: 0

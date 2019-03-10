@@ -8,31 +8,41 @@ public class LevelBehaviour : MonoBehaviour
     public GameObject Prefab;
     public GameObject ObstaclePrefab;
     public GameObject LinePrefab;
+    public GameObject SmallLinePrefab;
 
     private GameObject probe;
     private Circle mainCircle;
     private Circle endCircle;
 
     private bool probeInitialized = false;
-    private List<float> endCircleAngles = new List<float>();
+    private List<Probe> probes = new List<Probe>();
     private CircleDrawer drawer;
+    public float angleDifference = 120;
+    private float distanceDifference;
+
+    private LevelDispay ld;
+    public int maxProbeNumber;
     
     void Start()
     {
-        
+        ld = GetComponent<LevelDispay>();
+        ld.MaxProbeTextChanged(maxProbeNumber.ToString());
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
-        drawer = new CircleDrawer(LinePrefab, endCircle, 90);
-        CreateBaseObstacles(40);
+        drawer = new CircleDrawer(LinePrefab, endCircle, angleDifference);
+        distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
+        //CreateBaseObstacles(40);
         CreateRocket();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !probeInitialized)
+        if (Input.GetKeyDown(KeyCode.Space) && !probeInitialized && maxProbeNumber > 0)
         {
             probe.GetComponent<RocketBehaviour>().ChangeMovement(true);
             probeInitialized = true;
+            maxProbeNumber--;
+            ld.MaxProbeTextChanged(maxProbeNumber.ToString());
         }
 
         if (probeInitialized)
@@ -47,8 +57,10 @@ public class LevelBehaviour : MonoBehaviour
             if (!rocketCheck)
             {
                 Vector2 cirPos = probe.GetComponent<RocketBehaviour>().circlePosition;
-                endCircleAngles.Add(endCircle.Angle(cirPos.x, cirPos.y));
-                drawer.Draw(endCircleAngles);
+                Probe p = probe.GetComponent<Probe>();
+                p.Angle = endCircle.Angle(cirPos.x, cirPos.y);
+                probes.Add(p);
+                drawer.Draw(probes);
                 probeInitialized = false;
                 CreateRocket();
                 return;
@@ -58,12 +70,23 @@ public class LevelBehaviour : MonoBehaviour
 
     private void CreateRocket()
     {
-        Vector2 pos = mainCircle.GetRandomPoint();
-        probe = Instantiate(Prefab, pos, Quaternion.identity);
-        probe.transform.rotation = QuaternionUtil.GetOppositeDirection(probe, mainObject);
-        probe.transform.SetParent(mainObject.transform);
-        probe.GetComponent<RocketBehaviour>().Init(endCircle);
+
+        if (maxProbeNumber > 0)
+        {
+            Vector2 pos = mainCircle.GetRandomPoint();
+            probe = Instantiate(Prefab, pos, Quaternion.identity);
+            probe.transform.rotation = QuaternionUtil.GetOppositeDirection(probe, mainObject);
+            probe.transform.SetParent(mainObject.transform);
+            probe.GetComponent<RocketBehaviour>().Init(endCircle);
+            probe.GetComponent<Probe>().Init(Time.time, SmallLinePrefab, distanceDifference);
+        }
+        else
+        {
+            probe = null;
+        }
     }
+
+    
 
     private void CreateBaseObstacles(int _value)
     {

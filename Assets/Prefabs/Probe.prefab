@@ -14,8 +14,9 @@ GameObject:
   - component: {fileID: 5569623553276937820}
   - component: {fileID: 1030140224092685597}
   - component: {fileID: 2505336188232503292}
+  - component: {fileID: 6770605609066472495}
   m_Layer: 0
-  m_Name: Rocket
+  m_Name: Probe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,5 +122,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b476dc326bb98b842a635e8c36246c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkPositionObject: {fileID: 5617187235876041540, guid: 831cf41e468c6c14289417ba559a313e,
-    type: 3}
+  circlePosition: {x: 0, y: 0}
+--- !u!114 &6770605609066472495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569623553276937821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b62b54fabce31144fa114c1f77aba32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

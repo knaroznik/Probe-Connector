@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RocketBehaviour : MonoBehaviour
 {
-
     private Circle endCircle;
     private bool moving = false;
     private float speed = 7.32f;
