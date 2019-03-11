@@ -15,12 +15,12 @@ public class LevelBehaviour : MonoBehaviour
     private Circle endCircle;
 
     private bool probeInitialized = false;
-    private List<Probe> probes = new List<Probe>();
-    private CircleDrawer drawer;
+    private AngleCircleArray angleArray;
     public float angleDifference = 120;
     private float distanceDifference;
 
     private LevelDispay ld;
+    private bool controlBlock = false;
     public int maxProbeNumber;
     
     void Start()
@@ -29,14 +29,26 @@ public class LevelBehaviour : MonoBehaviour
         ld.MaxProbeTextChanged(maxProbeNumber.ToString());
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
-        drawer = new CircleDrawer(LinePrefab, endCircle, angleDifference);
         distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
+        angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference));
+
         //CreateBaseObstacles(40);
         CreateRocket();
     }
 
     private void Update()
     {
+        if (controlBlock)
+        {
+            if(probe != null)
+            {
+                Destroy(probe);
+                probe = null;
+            }
+            return;
+        }
+            
+
         if (Input.GetKeyDown(KeyCode.Space) && !probeInitialized && maxProbeNumber > 0)
         {
             probe.GetComponent<RocketBehaviour>().ChangeMovement(true);
@@ -59,8 +71,12 @@ public class LevelBehaviour : MonoBehaviour
                 Vector2 cirPos = probe.GetComponent<RocketBehaviour>().circlePosition;
                 Probe p = probe.GetComponent<Probe>();
                 p.Angle = endCircle.Angle(cirPos.x, cirPos.y);
-                probes.Add(p);
-                drawer.Draw(probes);
+                angleArray.Add(p);
+                float x = angleArray.Calculate();
+                if (x >= 360)
+                {
+                    GameOver(true);
+                }
                 probeInitialized = false;
                 CreateRocket();
                 return;
@@ -82,6 +98,7 @@ public class LevelBehaviour : MonoBehaviour
         }
         else
         {
+            GameOver(false);
             probe = null;
         }
     }
@@ -100,5 +117,11 @@ public class LevelBehaviour : MonoBehaviour
             o.GetComponent<Orbitable>().OrbitObject = mainObject.transform;
             o.GetComponent<Orbitable>().rotationSpeed = Random.Range(10, 100);
         }
+    }
+
+    private void GameOver(bool _gameResult)
+    {
+        controlBlock = true;
+        ld.DisplayResult(_gameResult);
     }
 }
