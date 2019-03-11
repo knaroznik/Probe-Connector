@@ -8,15 +8,18 @@ public class LevelDispay : MonoBehaviour
     public Text maxProbeText;
     public Image endPanel;
     public Text endText;
+    public Image[] starSprites;
+    public string[] levelMessages;
+    public Sprite goldStar;
 
     public void MaxProbeTextChanged(string _value)
     {
         maxProbeText.text = "Probes left : " + _value;
     }
 
-    public void DisplayResult(bool _gameResult)
+    public void DisplayResult(LevelDegrees levelScore)
     {
-        StartCoroutine(IDisplayResult(_gameResult));
+        StartCoroutine(IDisplayResult(levelScore));
     }
 
     public IEnumerator LerpColor(Color _start, Color _end, Image _image, float _time)
@@ -31,12 +34,27 @@ public class LevelDispay : MonoBehaviour
         }
     }
 
-    private IEnumerator IDisplayResult(bool _gameResult)
+    private IEnumerator IDisplayResult(LevelDegrees levelScore)
     {
         endPanel.gameObject.SetActive(true);
         yield return StartCoroutine(LerpColor(Color.clear, Color.black, endPanel, 4f));
         endText.gameObject.SetActive(true);
-        endText.text = _gameResult.ToString();
+        endText.text = levelMessages[levelScore.GetLevelDegree()];
+
+        for(int i=0; i<starSprites.Length; i++)
+        {
+            starSprites[i].gameObject.SetActive(true);
+        }
+        yield return new WaitForSeconds(1f);
+        int score = levelScore.GetLevelDegree();
+        for (int i=0; i<starSprites.Length; i++)
+        {
+            if(score >= i + 1)
+            {
+                starSprites[i].sprite = goldStar;
+                yield return new WaitForSeconds(1f);
+            }
+        }
         yield return null;
     }
 }

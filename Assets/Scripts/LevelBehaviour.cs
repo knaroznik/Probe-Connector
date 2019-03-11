@@ -22,6 +22,8 @@ public class LevelBehaviour : MonoBehaviour
     private LevelDispay ld;
     private bool controlBlock = false;
     public int maxProbeNumber;
+
+    private LevelDegrees levelScore;
     
     void Start()
     {
@@ -31,6 +33,8 @@ public class LevelBehaviour : MonoBehaviour
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
         distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
         angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference));
+
+        levelScore = new LevelDegrees(4, 6, maxProbeNumber);
 
         //CreateBaseObstacles(40);
         CreateRocket();
@@ -51,6 +55,7 @@ public class LevelBehaviour : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && !probeInitialized && maxProbeNumber > 0)
         {
+            levelScore.IncreaseCurrentScore();
             probe.GetComponent<RocketBehaviour>().ChangeMovement(true);
             probeInitialized = true;
             maxProbeNumber--;
@@ -75,7 +80,7 @@ public class LevelBehaviour : MonoBehaviour
                 float x = angleArray.Calculate();
                 if (x >= 360)
                 {
-                    GameOver(true);
+                    GameOver();
                 }
                 probeInitialized = false;
                 CreateRocket();
@@ -98,7 +103,7 @@ public class LevelBehaviour : MonoBehaviour
         }
         else
         {
-            GameOver(false);
+            GameOver();
             probe = null;
         }
     }
@@ -119,9 +124,9 @@ public class LevelBehaviour : MonoBehaviour
         }
     }
 
-    private void GameOver(bool _gameResult)
+    private void GameOver()
     {
         controlBlock = true;
-        ld.DisplayResult(_gameResult);
+        ld.DisplayResult(levelScore);
     }
 }
