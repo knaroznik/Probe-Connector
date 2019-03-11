@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ProbeDisplay {
 
-    Rigidbody r;
+    private Rigidbody probeRigidbody;
     Vector2 position;
-    CircleDrawer c;
+    BaseCircleDrawer c;
     GameObject linePrefab;
     float distanceDifference;
 
@@ -14,7 +14,7 @@ public class ProbeDisplay {
 
     public ProbeDisplay(Rigidbody _r, GameObject _linePrefab, float _distanceDifference)
     {
-        r = _r;
+        probeRigidbody = _r;
         linePrefab = _linePrefab;
         distanceDifference = _distanceDifference;
     }
@@ -24,10 +24,10 @@ public class ProbeDisplay {
         if (!displayed)
         {
             position = _position;
-            r.isKinematic = true;
+            probeRigidbody.isKinematic = true;
             if (c == null)
             {
-                c = new CircleDrawer(linePrefab, new Circle(position.x, position.y, distanceDifference), 99999);
+                c = new BaseCircleDrawer(linePrefab, new Circle(position.x, position.y, distanceDifference), 0.1f);
             }
             c.Draw();
             displayed = true;

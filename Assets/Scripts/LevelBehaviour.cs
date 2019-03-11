@@ -8,7 +8,6 @@ public class LevelBehaviour : MonoBehaviour
     public GameObject Prefab;
     public GameObject ObstaclePrefab;
     public GameObject LinePrefab;
-    public GameObject SmallLinePrefab;
 
     private GameObject probe;
     private Circle mainCircle;
@@ -32,7 +31,7 @@ public class LevelBehaviour : MonoBehaviour
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
         distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
-        angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference));
+        angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference, 1f));
 
         levelScore = new LevelDegrees(4, 6, maxProbeNumber);
 
@@ -99,7 +98,7 @@ public class LevelBehaviour : MonoBehaviour
             probe.transform.rotation = QuaternionUtil.GetOppositeDirection(probe, mainObject);
             probe.transform.SetParent(mainObject.transform);
             probe.GetComponent<RocketBehaviour>().Init(endCircle);
-            probe.GetComponent<Probe>().Init(Time.time, SmallLinePrefab, distanceDifference);
+            probe.GetComponent<Probe>().Init(Time.time, LinePrefab, distanceDifference);
         }
         else
         {
