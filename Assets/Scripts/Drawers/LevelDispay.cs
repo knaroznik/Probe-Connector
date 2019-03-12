@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LevelDispay : MonoBehaviour
 {
     public Text maxProbeText;
+    public Text levelNumberText;
     public Image endPanel;
     public Text endText;
     public Image[] starSprites;
@@ -15,6 +16,11 @@ public class LevelDispay : MonoBehaviour
     public void MaxProbeTextChanged(string _value)
     {
         maxProbeText.text = "Probes left : " + _value;
+    }
+
+    public void LevelNumberChanged(int _newValue)
+    {
+        levelNumberText.text = "Level " + _newValue.ToString();
     }
 
     public void DisplayResult(LevelDegrees levelScore)

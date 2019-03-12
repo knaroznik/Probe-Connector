@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class LevelBehaviour : MonoBehaviour
@@ -23,11 +25,13 @@ public class LevelBehaviour : MonoBehaviour
     public int maxProbeNumber;
 
     private LevelDegrees levelScore;
+    private int levelNumber;
     
     void Start()
     {
-        ld = GetComponent<LevelDispay>();
-        ld.MaxProbeTextChanged(maxProbeNumber.ToString());
+        Load();
+        HandleDisplay();
+
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
         distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
@@ -37,6 +41,26 @@ public class LevelBehaviour : MonoBehaviour
 
         //CreateBaseObstacles(40);
         CreateRocket();
+    }
+
+    private void Load()
+    {
+        SaveData save = SaveUtil.LoadSave();
+        if (save != null)
+        {
+            if (save.maxAngleDifference != 0)
+            {
+                angleDifference = save.maxAngleDifference;
+            }
+            levelNumber = save.levelNumber;
+        }
+    }
+
+    private void HandleDisplay()
+    {
+        ld = GetComponent<LevelDispay>();
+        ld.MaxProbeTextChanged(maxProbeNumber.ToString());
+        ld.LevelNumberChanged(levelNumber);
     }
 
     private void Update()
