@@ -935,6 +935,8 @@ MonoBehaviour:
     type: 3}
   angleDifference: 120
   maxProbeNumber: 9
+  NormalMaterial: {fileID: 2100000, guid: 29f331aec0689614c950ab27984624de, type: 2}
+  LightGreenMaterial: {fileID: 2100000, guid: beea152bca5c40045b621cab80e3d02f, type: 2}
 --- !u!114 &746180492
 MonoBehaviour:
   m_ObjectHideFlags: 0

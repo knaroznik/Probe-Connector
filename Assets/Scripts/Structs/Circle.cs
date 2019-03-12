@@ -21,6 +21,16 @@ public class Circle
         circleRadius = _newRadiusValue;
     }
 
+    public void DecreaseRadius(float _changeValue)
+    {
+        circleRadius -= _changeValue;
+    }
+
+    public float CircleRadius()
+    {
+        return circleRadius;
+    }
+
     public Vector2 GetRandomPoint()
     {
         float randomAngle = Random.value * 360;

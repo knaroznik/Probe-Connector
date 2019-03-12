@@ -23,10 +23,10 @@ public class Probe : MonoBehaviour
 
     private ProbeDisplay drawer;
 
-    public void Init(float _timeCreated, GameObject linePrefab, float distanceDiffeence)
+    public void Init(float _timeCreated, GameObject linePrefab, float distanceDiffeence, Material _lineMaterial)
     {
         timeCreated = _timeCreated;
-        drawer = new ProbeDisplay(this.GetComponent<Rigidbody>(), linePrefab, distanceDiffeence);
+        drawer = new ProbeDisplay(this.GetComponent<Rigidbody>(), linePrefab, distanceDiffeence, _lineMaterial);
     }
 
     public void DisplayProbe()

@@ -7,7 +7,7 @@ public class CircleDrawer : BaseCircleDrawer
 {
     private float maxAngleDifference;
 
-    public CircleDrawer(GameObject _linePrefab, Circle _endCircle, float _maxAngleDifference, float _lineWidth) : base(_linePrefab, _endCircle, _lineWidth)
+    public CircleDrawer(GameObject _linePrefab, Circle _endCircle, float _maxAngleDifference, float _lineWidth, Material _lineMaterial) : base(_linePrefab, _endCircle, _lineWidth, _lineMaterial)
     {
         maxAngleDifference = _maxAngleDifference;
     }

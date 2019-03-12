@@ -26,7 +26,12 @@ public class LevelBehaviour : MonoBehaviour
 
     private LevelDegrees levelScore;
     private int levelNumber;
-    
+
+    [Header("Materials")]
+    public Material NormalMaterial;
+    public Material LightGreenMaterial;
+
+
     void Start()
     {
         Load();
@@ -35,7 +40,7 @@ public class LevelBehaviour : MonoBehaviour
         mainCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 2);
         endCircle = new Circle(mainObject.transform.position.x, mainObject.transform.position.y, 7);
         distanceDifference = Vector2.Distance(endCircle.Vector2FromAngle(0), endCircle.Vector2FromAngle(angleDifference));
-        angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference, 1f));
+        angleArray = new AngleCircleArray(new CircleDrawer(LinePrefab, endCircle, angleDifference, 1f, NormalMaterial));
 
         levelScore = new LevelDegrees(4, 6, maxProbeNumber);
 
@@ -122,7 +127,7 @@ public class LevelBehaviour : MonoBehaviour
             probe.transform.rotation = QuaternionUtil.GetOppositeDirection(probe, mainObject);
             probe.transform.SetParent(mainObject.transform);
             probe.GetComponent<RocketBehaviour>().Init(endCircle);
-            probe.GetComponent<Probe>().Init(Time.time, LinePrefab, distanceDifference);
+            probe.GetComponent<Probe>().Init(Time.time, LinePrefab, distanceDifference, LightGreenMaterial);
         }
         else
         {
@@ -149,6 +154,11 @@ public class LevelBehaviour : MonoBehaviour
 
     private void GameOver()
     {
+        if (levelScore.GetLevelDegree() > 0)
+        {
+            BaseCircleDrawer d = new BaseCircleDrawer(LinePrefab, endCircle, 0.5f, LightGreenMaterial);
+            StartCoroutine(d.Collapse());
+        }
         controlBlock = true;
         ld.DisplayResult(levelScore);
     }
