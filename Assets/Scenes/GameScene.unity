@@ -293,8 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56acd65c03f56f14092099ce1ddf1423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OrbitObject: {fileID: 715223116}
-  rotationSpeed: 30
   Mass: 1
   moons: []
 --- !u!135 &131509753
@@ -618,6 +616,83 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &404446596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 404446599}
+  - component: {fileID: 404446598}
+  - component: {fileID: 404446597}
+  m_Layer: 0
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!23 &404446597
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404446596}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8d863fb7a6c9fc44bb606f57bcc4e856, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &404446598
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404446596}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &404446599
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404446596}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 10}
+  m_LocalScale: {x: 30, y: 30, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,12 +952,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotation: {x: 0, y: 1, z: 0}
---- !u!4 &715223116 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400000, guid: 04994c2946f27654281cfac9dda41afe,
-    type: 3}
-  m_PrefabInstance: {fileID: 1562324587}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &746180489
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,6 +963,8 @@ GameObject:
   - component: {fileID: 746180490}
   - component: {fileID: 746180491}
   - component: {fileID: 746180492}
+  - component: {fileID: 746180493}
+  - component: {fileID: 746180494}
   m_Layer: 0
   m_Name: '!SCRIPTS'
   m_TagString: Untagged
@@ -927,10 +998,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1718004cc1f08284596f512dad9d7700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainObject: {fileID: 715223113}
-  Prefab: {fileID: 5569623553276937821, guid: 1b32e2d7c715096459901d85d8c1ef52, type: 3}
-  ObstaclePrefab: {fileID: 176305236408838324, guid: 494128dfc54268d4a9c2265140c6a9e8,
-    type: 3}
   LinePrefab: {fileID: 3132918672736730119, guid: b3f64f45bc6da3748886eb54dec4a979,
     type: 3}
   angleDifference: 120
@@ -963,6 +1030,41 @@ MonoBehaviour:
   - Quite nice!
   - Perfect!
   goldStar: {fileID: 21300000, guid: 6877a4d22c9beb64faedc1400af24da0, type: 3}
+--- !u!114 &746180493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746180489}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148a293628dfac04598f8e8f212f6cf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObstaclePrefab: {fileID: 176305236408838324, guid: 494128dfc54268d4a9c2265140c6a9e8,
+    type: 3}
+  ObstacleCount: 40
+  MinRadius: 4.5
+  MaxRadius: 6
+  MinRotationSpeed: 10
+  MaxRotationSpeed: 100
+--- !u!114 &746180494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746180489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aea2af1dac22104a8de5ac710e1c99c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ProbePrefab: {fileID: 5569623553276937821, guid: 1b32e2d7c715096459901d85d8c1ef52,
+    type: 3}
+  MainObject: {fileID: 715223113}
+  maxProbeNumber: 10
 --- !u!1 &1063390906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1287,11 +1389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 04994c2946f27654281cfac9dda41afe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.06999898
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 04994c2946f27654281cfac9dda41afe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5199997
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 04994c2946f27654281cfac9dda41afe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1345,6 +1447,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 6fb539b86a4b3c444a84e6c4b5797aca, type: 2}
+    - target: {fileID: 2300000, guid: 04994c2946f27654281cfac9dda41afe, type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04994c2946f27654281cfac9dda41afe, type: 3}
 --- !u!1 &1670123365

@@ -30,27 +30,20 @@ public class AngleCircleArray
             return circuit;
         }
 
-        for (int i = 0; i < probes.Count; i++)
-        {
-            probes[i].Connections = 0;
-        }
-
-        drawer.Hide();
-
         for (int i = 1; i < probes.Count; i++)
         {
-            if (drawer.DrawArch(probes[i - 1].Angle, probes[i].Angle, true))
+            if (drawer.DrawProbe(probes[i - 1], probes[i], true))
             {
-                probes[i - 1].Connections++;
-                probes[i].Connections++;
+                probes[i - 1].SetBorderer(1, probes[i]);
+                probes[i].SetBorderer(0, probes[i - 1]);
                 circuit += (Mathf.Abs(probes[i].Angle - probes[i - 1].Angle));
             }
         }
 
-        if (drawer.DrawArch(probes[probes.Count - 1].Angle, probes[0].Angle, false))
+        if (drawer.DrawProbe(probes[probes.Count - 1], probes[0], false))
         {
-            probes[probes.Count - 1].Connections++;
-            probes[0].Connections++;
+            probes[probes.Count - 1].SetBorderer(1, probes[0]);
+            probes[0].SetBorderer(0, probes[probes.Count - 1]);
             circuit += Mathf.Abs((probes[0].Angle + 360) - probes[probes.Count - 1].Angle);
         }
 

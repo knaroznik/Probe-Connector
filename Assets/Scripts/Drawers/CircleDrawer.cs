@@ -24,8 +24,6 @@ public class CircleDrawer : BaseCircleDrawer
             return false;
         }
 
-        
-
         GameObject line = MonoBehaviour.Instantiate(linePrefab);
         line.GetComponent<LineRendererBehaviour>().Initialize(lineWidth, Color.green, null);
         lineRenderers.Add(line);
@@ -36,6 +34,30 @@ public class CircleDrawer : BaseCircleDrawer
         {
             l.SetPosition(j, points[j]);
         }
+        return true;
+    }
+
+    //Delete this links that are not correct
+    public bool DrawProbe(Probe lowProbe, Probe highProbe, bool sortingMethod)
+    {
+        float lowValue = lowProbe.Angle;
+        float highValue = highProbe.Angle;
+        if (!sortingMethod)
+        {
+            highValue += 360;
+        }
+
+        if (Mathf.Abs(highValue - lowValue) > maxAngleDifference)
+        {
+            return false;
+        }
+
+        if (lowProbe.GetBorderer(1) == highProbe)
+        {
+            return true;
+        }
+
+        DrawArch(lowProbe.Angle, highProbe.Angle, sortingMethod);
         return true;
     }
 }
